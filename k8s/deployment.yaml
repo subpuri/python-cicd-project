@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infraops-automator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: infraops-automator
+  template:
+    metadata:
+      labels:
+        app: infraops-automator
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret
+      containers:
+        - name: app
+          image: 837832656548.dkr.ecr.us-east-1.amazonaws.com/infraops-automator:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
