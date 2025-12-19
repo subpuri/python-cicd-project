@@ -1,0 +1,36 @@
+# ----------------------
+# Python
+# ----------------------
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+.env
+
+# ----------------------
+# Terraform
+# ----------------------
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/.terraform.lock.hcl
+
+# ----------------------
+# SSH / Keys
+# ----------------------
+*.pem
+*.key
+
+# ----------------------
+# OS / Editor
+# ----------------------
+.DS_Store
+.vscode/
+.idea/
+
+# ----------------------
+# Logs
+# ----------------------
+*.log
+
