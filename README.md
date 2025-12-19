@@ -1,168 +1,100 @@
-Perfect 👍
-Below is a **single, complete `README.md` file**, ready to copy-paste **as-is** into your GitHub repository.
-It includes:
-
-* Full project explanation
-* **Complete end-to-end architecture (clearly explained)**
-* CI/CD flow
-* Kubernetes + AWS + Jenkins details
-* Interview-ready wording
-
-No placeholders, no missing sections.
-
----
-
-## 📄 `README.md` (COMPLETE FILE)
-
-```markdown
 # InfraOps Automator 🚀
 
-InfraOps Automator is a **production-style, end-to-end DevOps & Cloud-Native project** built using Python, Docker, Kubernetes, AWS, Terraform, and Jenkins.
+InfraOps Automator is an end-to-end **Python-based infrastructure operations automation platform** built to demonstrate **real-world DevOps and Cloud-Native practices**.
 
-The goal of this project is to demonstrate how a **Python automation application** can be taken from source code all the way to **automated deployment on Kubernetes**, using **real-world CI/CD practices**.
+The project showcases how a Python application can be:
+- containerized with Docker
+- tested automatically
+- pushed to AWS ECR
+- deployed on a self-managed Kubernetes (k3s) cluster on AWS EC2
+- fully automated using Jenkins CI/CD
+- provisioned using Terraform
 
-This is **not a toy project** — every component reflects how systems are built and deployed in real engineering teams.
-
----
-
-## 🧠 What This Project Solves
-
-- Automates system-level operational data (CPU, memory, disk)
-- Exposes the data via **REST APIs (FastAPI)**
-- Provides a **CLI tool** for operations
-- Uses **Docker** for reproducible builds
-- Uses **Kubernetes (k3s)** for orchestration
-- Uses **AWS ECR** for private image storage
-- Uses **Terraform** for infrastructure provisioning
-- Uses **Jenkins** for full CI/CD automation
+This repository is designed as a **learning-focused but production-aligned project**.
 
 ---
 
-## 🏗️ COMPLETE ARCHITECTURE (END-TO-END)
+## 🧩 High-Level Architecture
 
-```
+Developer (Git Push)
+|
+v
+GitHub Repository
+|
+v
+Jenkins CI/CD
+(WSL-based Jenkins)
+|
+|-- Run tests (pytest)
+|-- Build Docker image
+|-- Push image to AWS ECR
+|-- Deploy manifests via kubectl
+v
+AWS EC2 (Free Tier)
+|
+k3s Cluster
+|
+FastAPI Application
+(NodePort Service)
 
-┌──────────────────────────────────────────┐
-│            Developer Machine             │
-│      (Local / WSL Environment)            │
-│                                          │
-│  - Python source code                     │
-│  - Dockerfile                             │
-│  - Kubernetes manifests                  │
-│  - Terraform IaC                          │
-│                                          │
-│        git push (main branch)             │
-└───────────────────────┬──────────────────┘
-│
-▼
-┌──────────────────────────────────────────┐
-│                GitHub                    │
-│        Source Code Repository            │
-│                                          │
-│  - Python application                    │
-│  - Jenkinsfile                           │
-│  - Dockerfile                            │
-│  - Kubernetes YAMLs                      │
-│  - Terraform code                        │
-└───────────────────────┬──────────────────┘
-│
-▼
-┌──────────────────────────────────────────┐
-│               Jenkins CI/CD              │
-│      (Running on Local WSL Host)          │
-│                                          │
-│  Pipeline Stages:                        │
-│  1. Checkout source code                 │
-│  2. Run pytest                           │
-│  3. Build Docker image                   │
-│  4. Push image to AWS ECR                │
-│  5. Deploy to Kubernetes (kubectl)       │
-│                                          │
-│  Credentials handled securely via        │
-│  Jenkins Credentials Store               │
-└───────────────────────┬──────────────────┘
-│
-▼
-┌──────────────────────────────────────────┐
-│              AWS Cloud                   │
-│                                          │
-│  ┌────────────────────────────────────┐ │
-│  │        AWS ECR (Private)            │ │
-│  │  - Stores Docker images             │ │
-│  │  - Auth via IAM & imagePullSecret   │ │
-│  └────────────────────────────────────┘ │
-│                                          │
-│  ┌────────────────────────────────────┐ │
-│  │          AWS EC2 (Free Tier)        │ │
-│  │                                    │ │
-│  │  - k3s Kubernetes cluster           │ │
-│  │  - containerd runtime               │ │
-│  │  - Pulls image from ECR             │ │
-│  │                                    │ │
-│  │  Kubernetes Objects:                │ │
-│  │  - Deployment                       │ │
-│  │  - Service (NodePort)               │ │
-│  └────────────────────────────────────┘ │
-└───────────────────────┬──────────────────┘
-│
-▼
-┌──────────────────────────────────────────┐
-│         FastAPI Application              │
-│      Running Inside Kubernetes Pod       │
-│                                          │
-│  - /health                               │
-│  - /system/cpu                           │
-│  - /system/memory                       │
-│  - /system/disk                         │
-│                                          │
-│  Exposed via NodePort Service            │
-│  Accessible from browser                │
-└──────────────────────────────────────────┘
 
-```
+
+
+
+---
+
+## ✨ Features
+
+- ✅ Python automation & scripting
+- ✅ FastAPI-based REST API
+- ✅ CLI tool for system operations
+- ✅ Dockerized application
+- ✅ Private AWS ECR image registry
+- ✅ Kubernetes (k3s) deployment
+- ✅ Jenkins-based CI/CD pipeline
+- ✅ Infrastructure provisioned using Terraform
+- ✅ Free-tier friendly AWS setup
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Application
-- Python 3.10
-- FastAPI
-- psutil
-- pytest
+- **Python 3.10**
+- **FastAPI**
+- **psutil**
+- **pytest**
 
-### DevOps / Cloud
-- Docker
-- Kubernetes (k3s)
-- AWS EC2
-- AWS ECR
-- Terraform
-- Jenkins
+### DevOps & Cloud
+- **Docker**
+- **Kubernetes (k3s)**
+- **AWS EC2**
+- **AWS ECR**
+- **Terraform**
+- **Jenkins**
 
 ---
 
 ## 📂 Project Structure
 
-```
-
 python-cicd-project/
 ├── app/
-│   ├── main.py              # FastAPI entry point
-│   ├── core/                # Config & logging
-│   ├── system/              # CPU, memory, disk logic
-│   ├── cli/                 # CLI automation
-│   ├── tests/               # Pytest test cases
-│   └── requirements.txt
+│ ├── main.py # FastAPI entry point
+│ ├── core/ # Config & logging
+│ ├── system/ # CPU, memory, disk metrics
+│ ├── cli/ # CLI automation
+│ ├── tests/ # Pytest test cases
+│ └── requirements.txt
 │
 ├── k8s/
-│   ├── deployment.yaml      # Kubernetes Deployment
-│   └── service.yaml         # NodePort Service
+│ ├── deployment.yaml # Kubernetes Deployment
+│ └── service.yaml # NodePort Service
 │
 ├── terraform/
-│   ├── main.tf              # EC2 + IAM
-│   ├── variables.tf
-│   ├── outputs.tf
-│   └── versions.tf
+│ ├── main.tf # EC2 & IAM provisioning
+│ ├── variables.tf
+│ ├── outputs.tf
+│ └── versions.tf
 │
 ├── Dockerfile
 ├── Jenkinsfile
@@ -170,145 +102,194 @@ python-cicd-project/
 ├── .gitignore
 └── README.md
 
-```
+
+
 
 ---
 
-## 🚀 Application Endpoints
+## 🚀 Application Capabilities
+
+### REST API (FastAPI)
+
+Available endpoints:
+
+| Endpoint | Description |
+|--------|-------------|
+| `/health` | Health check |
+| `/system/cpu` | CPU usage metrics |
+| `/system/memory` | Memory usage metrics |
+| `/system/disk` | Disk usage metrics |
 
 Swagger UI:
-```
 
 http://<EC2_PUBLIC_IP>:30080/docs
 
-````
-
-### API Endpoints
-
-| Endpoint | Description |
-|--------|------------|
-| `/health` | Health check |
-| `/system/cpu` | CPU usage |
-| `/system/memory` | Memory usage |
-| `/system/disk` | Disk usage |
 
 ---
 
-## 🖥️ CLI Usage
+### CLI Tool
+
+The same functionality is available via CLI:
 
 ```bash
 python3 -m app.cli.ops_cli cpu
 python3 -m app.cli.ops_cli memory
 python3 -m app.cli.ops_cli disk --path /
-````
+
 
 ---
 
-## 🧪 Testing
+🧪 Testing
 
-* Tests written using **pytest**
-* Executed automatically in Jenkins
-* Pipeline stops on failure
+Tests are written using pytest and executed automatically in CI.
 
-```bash
 pytest
-```
+
+The pipeline ensures:
+
+Tests run before image build
+
+Failures stop deployment
+
+
+
 
 ---
+🐳 Docker
 
-## 🐳 Docker
+Build locally:
 
-```bash
 docker build -t infraops-automator .
 docker run -p 8000:8000 infraops-automator
-```
+
+
+
 
 ---
+☸️ Kubernetes Deployment (k3s)
 
-## ☸️ Kubernetes Deployment
+The app is deployed using:
 
-```bash
+Deployment (single replica, free-tier safe)
+
+NodePort Service
+
+Apply manually:
+
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
-```
 
-Service type: **NodePort**
-Port exposed: `30080`
+
 
 ---
 
-## 🔐 AWS ECR
+🔐 AWS ECR Integration
 
-* Private registry
-* Images pushed by Jenkins
-* Kubernetes pulls using `imagePullSecret`
-* No secrets stored in Git
+Images are pushed to private AWS ECR
 
----
+Kubernetes pulls images using imagePullSecret
 
-## 🤖 Jenkins CI/CD Pipeline
+No credentials stored in repo
 
-On every push to `main`:
 
-1. Checkout code
-2. Run pytest
-3. Build Docker image
-4. Push image to AWS ECR
-5. Deploy to Kubernetes (k3s)
-
-This ensures **fully automated deployments**.
 
 ---
 
-## 🌍 Terraform (Infrastructure as Code)
+🤖 Jenkins CI/CD Pipeline
+
+On every push to main, Jenkins:
+
+Clones the repository
+
+Runs pytest
+
+Builds Docker image
+
+Pushes image to AWS ECR
+
+Deploys updated image to Kubernetes
+
+This ensures fully automated, repeatable deployments.
+
+
+
+---
+
+🌍 Infrastructure as Code (Terraform)
 
 Terraform provisions:
 
-* EC2 instance
-* IAM role for ECR access
-* Security groups
+EC2 instance (free tier)
 
-State files and secrets are **excluded from Git**.
+IAM role with ECR permissions
 
----
+Security groups
 
-## 🔒 Security & Best Practices
+State files and secrets are intentionally excluded from Git.
 
-* No secrets in repository
-* No Terraform state in Git
-* IAM roles instead of hardcoded credentials
-* Docker-based CI testing
-* Reproducible builds
-* Clean Git history
+🔒 Security & Best Practices
 
----
+❌ No secrets in repository
 
-## 📈 What This Project Demonstrates
+❌ No Terraform state in Git
 
-* Backend Python automation
-* Real CI/CD pipeline design
-* Kubernetes fundamentals
-* AWS container workflows
-* Infrastructure as Code
-* Debugging real DevOps issues
-* Production-aligned engineering practices
+❌ No private keys committed
+
+✅ IAM roles used for AWS access
+
+✅ Reproducible CI/CD pipeline
+
+✅ Container-based testing
+
+
 
 ---
 
-## 🚀 Future Enhancements
+📈 Learning Outcomes
 
-* Helm charts
-* Ingress controller
-* Monitoring (Prometheus / Grafana)
-* HPA
-* Remote Terraform backend
+This project demonstrates hands-on experience with:
+
+Python automation & backend development
+
+Docker & container workflows
+
+Kubernetes fundamentals
+
+AWS ECR & EC2
+
+Jenkins CI/CD pipelines
+
+Terraform infrastructure provisioning
+
+Debugging real-world DevOps issues
+
+
 
 ---
 
-## 👤 Author
+🏁 Future Enhancements
 
-**Subhash Puri**
+Helm chart support
 
-This project was built to gain **deep, hands-on experience** in backend development and cloud-native DevOps engineering.
+Ingress controller (NGINX)
+
+Prometheus & Grafana monitoring
+
+Horizontal Pod Autoscaling
+
+Remote Terraform backend (S3 + DynamoDB)
+
+
+
+
+
+---
+
+👤 Author
+
+Subhash Puri
+
+This project was built as a hands-on learning initiative to gain deep, practical understanding of backend development and cloud-native DevOps workflows.
+
 
 
